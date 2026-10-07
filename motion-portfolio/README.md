@@ -14,6 +14,7 @@ page that plays like a video.
 | `assets/soundtrack.mp3` | VO mixed with the ambient bed (music ducks under the voice), −16 LUFS |
 | `assets/img/` | Project screenshots from the portfolio repo; names, locations and site photos are blurred |
 | `tools/make_music.py` | Generates the ambient music bed (numpy only, deterministic) |
+| `tools/render.mjs`, `tools/snap.mjs` | Frame-by-frame MP4 render and key-frame snapshots (Node + puppeteer-core; set `CHROME` to your Chrome path) |
 
 ## Viewing
 
