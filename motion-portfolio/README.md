@@ -8,6 +8,7 @@ page that plays like a video.
 |---|---|
 | `portfolio-motion.mp4` | Final render: 1080×1080, 60 fps, H.264 + AAC (VO + ambient music) |
 | `thumbnail.png` | Closing frame, for LinkedIn's custom thumbnail |
+| `cover-instagram-3x4.png` | Instagram grid cover, 1080×1440 (3:4); key content sits in the centre square so a 1:1 crop also works. Source: `cover.html` |
 | `subtitles-id.srt` | Indonesian subtitles (also burned into the MP4; `index.html?subs=0` hides them) |
 | `index.html` | The animation itself. Double-click to play (autoplay, loop, no player) |
 | `vo-script.md` | EN + ID voice-over scripts written for ElevenLabs Eleven v4 |
