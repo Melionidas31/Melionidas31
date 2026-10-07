@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<!-- Built with the Bang Motion skill (https://github.com/bangtutorial/bang-motion) — explainer, engineering-editorial style -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zaki Ramdhan — Models that know their limits</title>
+<!--
+  STYLE BRIEF
+  - Feeling: trustworthy, precise, calm.
+  - Concept: one continuous engineering drawing sheet. Every project is a numbered zone on the sheet; the camera
+    travels the sheet, the zones are linked like a process flow, and the ending pulls back to show the whole system.
+  - Palette: paper #F3F0E8 (derived: drafting paper), ink #16181D, accent teal #0F8F80 (AntiDeadline.ai brand teal),
+    red-zone #C8412F (ALOHA Red Zone; used only for hazard data).
+  - Type: Instrument Serif (statements), Geist (UI text), Geist Mono (labels, numbers). Sentence case, no full stops.
+  - Signature motion: hairlines that draw themselves (tables, leaders, dimension boxes) + words rising out of a soft blur.
+  - Background motion: breathing camera drift over a two-scale grid, slow drifting light, live grain.
+  - Special moment: the camera pushes into the real model-comparison dashboard while Red-Zone error collapses 22.25 → 1.82 m.
+  - Determinism: every visual is a function of tl.time(); no Date.now()/Math.random().
+-->
+<style>
+@font-face{font-family:"Instrument Serif";src:url(assets/fonts/instrument-serif.woff2) format("woff2");font-style:normal;font-weight:400}
+@font-face{font-family:"Instrument Serif";src:url(assets/fonts/instrument-serif-italic.woff2) format("woff2");font-style:italic;font-weight:400}
+@font-face{font-family:"Geist";src:url(assets/fonts/geist.woff2) format("woff2");font-weight:100 900}
+@font-face{font-family:"Geist Mono";src:url(assets/fonts/geist-mono.woff2) format("woff2");font-weight:100 900}
+:root{--paper:#F3F0E8;--ink:#16181D;--mute:#6B6E76;--hair:rgba(22,24,29,.22);--teal:#0F8F80;--teal-soft:rgba(15,143,128,.14);--red:#C8412F;--orange:#D9822B;--yellow:#C9A227}
+html,body{margin:0;height:100%;background:#0d0e10;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1080px;height:1080px;overflow:hidden;background:var(--paper);color:var(--ink);font-family:"Geist",sans-serif}
+#world{position:absolute;left:0;top:0;width:10px;height:10px;transform-origin:0 0;will-change:transform}
+.sheet{position:absolute;left:-3000px;top:-3000px;width:9500px;height:9600px;background-color:var(--paper);
+  background-image:linear-gradient(rgba(22,24,29,.075) 1px,transparent 1px),linear-gradient(90deg,rgba(22,24,29,.075) 1px,transparent 1px),
+  linear-gradient(rgba(22,24,29,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(22,24,29,.035) 1px,transparent 1px);
+  background-size:120px 120px,120px 120px,30px 30px,30px 30px}
+.frame{position:absolute;width:1080px;height:1080px}
+.crop{position:absolute;inset:36px;pointer-events:none}
+.crop i{position:absolute;width:30px;height:30px;border:0 solid rgba(22,24,29,.45)}
+.crop i:nth-child(1){left:0;top:0;border-left-width:2px;border-top-width:2px}
+.crop i:nth-child(2){right:0;top:0;border-right-width:2px;border-top-width:2px}
+.crop i:nth-child(3){left:0;bottom:0;border-left-width:2px;border-bottom-width:2px}
+.crop i:nth-child(4){right:0;bottom:0;border-right-width:2px;border-bottom-width:2px}
+.lab{position:absolute;font:500 30px/1 "Geist Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);white-space:nowrap;opacity:0}
+.lab b{font-weight:500;color:var(--ink)}
+.num{position:absolute;right:90px;font:500 30px/1 "Geist Mono",monospace;letter-spacing:.12em;color:var(--mute);opacity:0}
+.st{position:absolute;font:400 104px/1 "Instrument Serif",serif;letter-spacing:-.015em;color:var(--ink);white-space:nowrap}
+.st em{font-style:italic;color:var(--teal)}
+.st .w{display:inline-block;opacity:0;will-change:transform,opacity,filter}
+.plate{position:absolute;border-radius:14px;background:#fff;overflow:hidden;opacity:0;will-change:transform,opacity,filter;
+  box-shadow:0 0 0 1px rgba(22,24,29,.12),0 10px 18px rgba(22,24,29,.07),0 40px 70px -30px rgba(22,24,29,.35)}
+.plate .bar{height:34px;display:flex;align-items:center;gap:9px;padding:0 16px;background:#fbfaf7;border-bottom:1px solid rgba(22,24,29,.1)}
+.plate .bar i{width:11px;height:11px;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(22,24,29,.28)}
+.plate img{display:block;width:100%}
+.phone{position:absolute;padding:14px;border-radius:44px;background:#1b1d22;opacity:0;will-change:transform,opacity,filter;
+  box-shadow:0 0 0 2px #2a2d33,0 12px 20px rgba(22,24,29,.12),0 50px 80px -30px rgba(22,24,29,.45)}
+.phone img{display:block;width:100%;border-radius:30px}
+.paperpage{position:absolute;background:#fff;opacity:0;will-change:transform,opacity,filter;
+  box-shadow:0 0 0 1px rgba(22,24,29,.1),0 10px 18px rgba(22,24,29,.07),0 40px 60px -30px rgba(22,24,29,.35)}
+.paperpage img{display:block;width:100%}
+.chip{position:absolute;padding:12px 18px;border-radius:10px;background:#fff;font:500 30px/1 "Geist Mono",monospace;letter-spacing:.06em;color:var(--ink);white-space:nowrap;opacity:0;
+  box-shadow:0 0 0 1.5px rgba(22,24,29,.2),0 10px 22px -8px rgba(22,24,29,.25)}
+.chip.t{background:var(--teal);color:#fff;box-shadow:0 10px 22px -8px rgba(15,143,128,.6)}
+.chip.o{box-shadow:0 0 0 2px var(--orange),0 10px 22px -8px rgba(22,24,29,.2);color:#8a4a10}
+.chip.g{box-shadow:0 0 0 2px rgba(22,24,29,.35);color:var(--mute);background:#f7f6f2}
+svg.ink{position:absolute;overflow:visible}
+svg.ink .hl{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round}
+svg.ink .hl2{fill:none;stroke:rgba(22,24,29,.35);stroke-width:1.5}
+svg.ink .tl{fill:none;stroke:var(--teal);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+svg.ink .dash{fill:none;stroke:var(--teal);stroke-width:3;stroke-dasharray:12 10}
+table.fmea{position:absolute;border-collapse:collapse;font:500 32px/1 "Geist",sans-serif;color:var(--ink)}
+.fmea td,.fmea th{height:78px;padding:0 20px;text-align:left;white-space:nowrap}
+.fmea th{height:70px;font:500 28px/1 "Geist Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.fmea .c{opacity:0}
+.fmea td.r{text-align:right;font-family:"Geist Mono",monospace;font-variant-numeric:tabular-nums}
+.rpnhi{display:inline-block;padding:6px 10px;margin-right:-10px;border-radius:8px;background:rgba(200,65,47,0);color:inherit}
+.readout{position:absolute;opacity:0}
+.readout .k{display:flex;align-items:center;gap:12px;font:500 28px/1 "Geist Mono",monospace;letter-spacing:.1em;color:var(--mute)}
+.readout .k i{width:16px;height:16px;border-radius:4px}
+.readout .v{margin-top:10px;font:400 72px/1 "Instrument Serif",serif;font-variant-numeric:tabular-nums}
+.big{position:absolute;font:400 200px/.9 "Instrument Serif",serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums;opacity:0}
+/* screen-space layers */
+#light{position:absolute;inset:-20%;pointer-events:none;background:radial-gradient(42% 38% at 30% 22%,rgba(255,255,255,.55),transparent 70%),radial-gradient(50% 45% at 78% 85%,rgba(15,143,128,.05),transparent 70%)}
+#grain{position:absolute;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+#vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(75% 75% at 50% 48%,transparent 62%,rgba(60,52,36,.10) 100%)}
+#hud{position:absolute;inset:0;pointer-events:none}
+.card{position:absolute;padding:30px 34px 34px;border-radius:18px;background:rgba(255,255,255,.96);opacity:0;will-change:transform,opacity,filter;
+  box-shadow:0 0 0 1px rgba(22,24,29,.1),0 14px 24px rgba(22,24,29,.08),0 50px 80px -30px rgba(22,24,29,.4)}
+.card .k{font:500 28px/1.2 "Geist Mono",monospace;letter-spacing:.1em;color:var(--mute)}
+.card .row{margin-top:26px}
+.card .nm{font:500 30px/1 "Geist",sans-serif;color:var(--mute)}
+.card .val{margin-top:6px;font:400 84px/1 "Instrument Serif",serif;font-variant-numeric:tabular-nums;white-space:nowrap}
+.card .track{margin-top:12px;height:12px;border-radius:6px;background:rgba(22,24,29,.06)}
+.card .fill{height:100%;border-radius:6px}
+#dbg{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:none;gap:12px;align-items:center;padding:10px 16px;border-radius:14px;background:rgba(14,16,22,.9);color:#cfd5e3;font:13px system-ui;z-index:50}
+#dbg input{width:360px}#dbg span{font-variant-numeric:tabular-nums;min-width:6ch}
+</style>
+</head>
+<body>
+<div id="stage">
+<div id="world">
+  <div class="sheet"></div>
+
+  <!-- process-flow connectors between zones + the "same question" arc (world coordinates) -->
+  <svg class="ink" style="left:0;top:0;width:10px;height:10px">
+    <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0F8F80"/></marker></defs>
+    <path id="c12" class="tl" marker-end="url(#ah)" d="M1050 540 H1225"/>
+    <path id="c23" class="tl" marker-end="url(#ah)" d="M1740 1050 V1285"/>
+    <path id="c34" class="tl" marker-end="url(#ah)" d="M2250 1800 H2425"/>
+    <path id="c45" class="tl" marker-end="url(#ah)" d="M2940 2310 V2485"/>
+    <path id="c56" class="tl" marker-end="url(#ah)" d="M2430 3000 H2255"/>
+    <path id="c67" class="tl" marker-end="url(#ah)" d="M1230 3000 H1055"/>
+    <path id="c78" class="tl" marker-end="url(#ah)" d="M540 2490 V2315"/>
+    <path id="arc" class="dash" d="M485 228 C 560 -170, 1880 -170, 1985 238"/>
+  </svg>
+
+  <!-- 01 · FMEA -->
+  <div class="frame" id="F1" style="left:0;top:0">
+    <div class="crop"><i></i><i></i><i></i><i></i></div>
+    <div class="lab" id="l1" style="left:90px;top:120px">Process safety · <b>FMEA</b></div>
+    <div class="num" id="n1" style="top:120px">01</div>
+    <svg class="ink" id="fmeaLines" style="left:90px;top:228px;width:900px;height:318px" viewBox="0 0 900 318">
+      <path class="hl" d="M0 0 H900"/><path class="hl" d="M0 70 H900"/><path class="hl2" d="M0 148 H900"/><path class="hl2" d="M0 226 H900"/><path class="hl" d="M0 304 H900"/>
+    </svg>
+    <table class="fmea" id="fmea" style="left:90px;top:228px;width:900px">
+      <colgroup><col style="width:250px"><col style="width:230px"><col style="width:270px"><col style="width:150px"></colgroup>
+      <tr><th class="c">Item</th><th class="c">Failure mode</th><th class="c">Effect</th><th class="c" style="text-align:right">RPN</th></tr>
+      <tr><td class="c">Tank T-101</td><td class="c">Overfill</td><td class="c">Vapour release</td><td class="c r"><span class="rpnhi" id="rpnA">0</span></td></tr>
+      <tr><td class="c">Pump P-02</td><td class="c">Seal leak</td><td class="c">Liquid spill</td><td class="c r" id="rpnB">0</td></tr>
+      <tr><td class="c">Level sensor</td><td class="c">Drift</td><td class="c">Late alarm</td><td class="c r" id="rpnC">0</td></tr>
+    </table>
+    <svg class="ink" style="left:0;top:0;width:1080px;height:1080px" viewBox="0 0 1080 1080">
+      <rect id="fmBox" class="tl" x="330" y="214" width="236" height="344" rx="12"/>
+    </svg>
+    <div class="st" id="s1" style="left:86px;top:700px">How can this <em>fail?</em></div>
+  </div>
+
+  <!-- 02 · prediction vs trust -->
+  <div class="frame" id="F2" style="left:1200px;top:0">
+    <div class="crop"><i></i><i></i><i></i><i></i></div>
+    <div class="lab" id="l2" style="left:90px;top:120px">Machine learning · <b>industrial ops</b></div>
+    <div class="num" id="n2" style="top:120px">02</div>
+    <svg class="ink" id="chart" style="left:90px;top:220px;width:900px;height:460px" viewBox="0 0 900 460">
+      <defs><pattern id="hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0 V16" stroke="rgba(22,24,29,.16)" stroke-width="3"/></pattern></defs>
+      <rect id="ood" x="560" y="0" width="340" height="420" fill="url(#hatch)" opacity="0"/>
+      <path id="oodLine" class="hl2" d="M560 0 V420" stroke-dasharray="8 8"/>
+      <path id="band" d="" fill="rgba(15,143,128,.16)" opacity="0"/>
+      <path id="axes" class="hl" d="M0 0 V420 H900"/>
+      <g id="pts"></g>
+      <path id="pred" class="tl" d="M0 330 C 120 300, 200 250, 300 220 S 470 150, 560 140 S 760 120, 900 70"/>
+    </svg>
+    <div class="lab" id="l2b" style="left:90px;top:700px">Output · input range</div>
+    <div class="lab" id="l2c" style="left:670px;top:236px;color:var(--ink)">No data</div>
+    <div class="st" id="s2" style="left:86px;top:800px">Prediction <span class="w" id="neq"><svg width="70" height="70" viewBox="0 0 70 70" style="vertical-align:-6px;overflow:visible"><path d="M8 26 H62 M8 46 H62" stroke="#16181D" stroke-width="5" stroke-linecap="round"/><path id="neqSlash" d="M48 8 L22 64" stroke="#0F8F80" stroke-width="5" stroke-linecap="round" fill="none"/></svg></span> <em>trust</em></div>
+  </div>
+
+  <!-- 03 · ALOHA surrogate, hazard map -->
+  <div class="frame" id="F3" style="left:1200px;top:1260px">
+    <div class="crop"><i></i><i></i><i></i><i></i></div>
+    <div class="lab" id="l3" style="left:90px;top:120px">ALOHA <b>ML surrogate</b></div>
+    <div class="num" id="n3" style="top:120px">03</div>
+    <div class="st" id="s3" style="left:86px;top:190px;font-size:80px">Hazard zones, <em>in real time</em></div>
+    <div class="plate" id="pMap" style="left:90px;top:330px;width:600px"><div class="bar"><i></i><i></i><i></i></div><img src="assets/img/aloha-map.jpg" alt=""></div>
+    <svg class="ink" style="left:0;top:0;width:1080px;height:1080px" viewBox="0 0 1080 1080">
+      <path id="ld1" class="hl" d="M400 631 C 520 610, 600 452, 728 446"/>
+    </svg>
+    <div class="readout" id="r1" style="left:742px;top:430px"><div class="k"><i style="background:var(--red)"></i>RED ZONE</div><div class="v">136.70 m</div></div>
+    <div class="readout" id="r2" style="left:742px;top:600px"><div class="k"><i style="background:var(--orange)"></i>ORANGE</div><div class="v">173.41 m</div></div>
+    <div class="readout" id="r3" style="left:742px;top:770px"><div class="k"><i style="background:var(--yellow)"></i>YELLOW</div><div class="v">305.03 m</div></div>
+  </div>
+
+  <!-- 04 · training data, accuracy, out-of-distribution -->
+  <div class="frame" id="F4" style="left:2400px;top:1260px">
+    <div class="crop"><i></i><i></i><i></i><i></i></div>
+    <div class="num" id="n4" style="top:120px">04</div>
+    <div class="big" id="cnt" style="left:84px;top:110px">0</div>
+    <div class="lab" id="l4" style="left:90px;top:300px">Full-factorial <b>ALOHA scenarios</b></div>
+    <svg class="ink" id="dots" style="left:135px;top:400px;width:810px;height:486px" viewBox="0 0 810 486"></svg>
+    <svg class="ink" style="left:0;top:0;width:1080px;height:1080px" viewBox="0 0 1080 1080">
+      <rect id="oodHatch" x="40" y="370" width="1000" height="580" fill="url(#hatch)" opacity="0"/>
+      <rect id="trust" class="dash" x="111" y="376" width="858" height="534" rx="22"/>
+    </svg>
+    <div class="chip t" id="chTrust" style="left:620px;top:350px">TRUSTED RANGE</div>
+    <div class="lab" id="l4b" style="left:90px;top:968px;color:var(--ink)">Out of distribution · <b style="color:var(--teal)">flagged</b></div>
+    <div class="plate" id="pModels" style="left:60px;top:290px;width:960px"><div class="bar"><i></i><i></i><i></i></div><img src="assets/img/aloha-models.jpg" alt="">
+      <svg class="ink" style="left:0;top:34px;width:960px;height:486px" viewBox="0 0 960 486"><circle id="ring" class="tl" cx="67" cy="214" r="26"/></svg></div>
+  </div>
+
+  <!-- 05 · AntiDeadline.ai -->
+  <div class="frame" id="F5" style="left:2400px;top:2460px">
+    <div class="crop"><i></i><i></i><i></i><i></i></div>
+    <div class="lab" id="l5" style="left:90px;top:120px">AntiDeadline.ai · <b>closed beta</b></div>
+    <div class="num" id="n5" style="top:120px">05</div>
+    <div class="plate" id="pLand" style="left:90px;top:190px;width:900px"><div class="bar"><i></i><i></i><i></i></div><img src="assets/img/ad-landing.jpg" alt=""></div>
+    <svg class="ink" style="left:0;top:0;width:1080px;height:1080px" viewBox="0 0 1080 1080">
+      <path id="pipe" class="hl" d="M250 772 H420 M640 772 H760"/>
+      <circle id="pk1" r="9" cx="250" cy="772" fill="#0F8F80" opacity="0"/>
+      <circle id="pk2" r="9" cx="640" cy="772" fill="#0F8F80" opacity="0"/>
+    </svg>
+    <div class="chip" id="q1" style="left:90px;top:745px">PARSE</div>
+    <div class="chip" id="q2" style="left:420px;top:745px">EXTRACT</div>
+    <div class="chip t" id="q3" style="left:760px;top:745px">REPORT</div>
+    <div class="plate" id="pIn" style="left:70px;top:190px;width:560px"><div class="bar"><i></i><i></i><i></i></div><img src="assets/img/ad-input.jpg" alt=""></div>
+    <div class="plate" id="pMeth" style="left:250px;top:215px;width:560px"><div class="bar"><i></i><i></i><i></i></div><img src="assets/img/ad-methods.jpg" alt=""></div>
+    <div class="plate" id="pRes" style="left:400px;top:170px;width:600px"><div class="bar"><i></i><i></i><i></i></div><img src="assets/img/ad-result.jpg" alt=""></div>
+    <div class="chip t" id="g1" style="left:90px;top:420px">VERIFIED</div>
+    <div class="chip o" id="g2" style="left:90px;top:500px">ASSUMPTION</div>
+    <div class="chip g" id="g3" style="left:90px;top:580px">MISSING</div>
+    <div class="st" id="s5" style="left:86px;top:836px;font-size:80px;line-height:1;white-space:normal;width:920px">Evidence, separated from <em>assumption</em></div>
+  </div>
+
+  <!-- 06 · field inspection -->
+  <div class="frame" id="F6" style="left:1200px;top:2460px">
+    <div class="crop"><i></i><i></i><i></i><i></i></div>
+    <div class="lab" id="l6" style="left:90px;top:120px">Field inspection · <b>Telegram bot</b></div>
+    <div class="num" id="n6" style="top:120px">06</div>
+    <div class="plate" id="pSheet" style="left:330px;top:300px;width:700px"><div class="bar"><i></i><i></i><i></i></div><img src="assets/img/mwt-sheet.jpg" alt="">
+      <svg class="ink" style="left:0;top:34px;width:700px;height:343px" viewBox="0 0 700 343"><rect id="rowBox" class="tl" x="4" y="74" width="692" height="90" rx="6"/></svg></div>
+    <div class="phone" id="ph" style="left:90px;top:190px;width:340px"><img src="assets/img/mwt-telegram.jpg" alt=""></div>
+    <div class="chip" id="vn" style="left:470px;top:700px">VOICE · PHOTO · TEXT</div>
+    <div class="st" id="s6" style="left:86px;top:800px;font-size:84px;line-height:1;white-space:normal;width:920px">From field notes to <em>structured data</em></div>
+  </div>
+
+  <!-- 07 · publications -->
+  <div class="frame" id="F7" style="left:0;top:2460px">
+    <div class="crop"><i></i><i></i><i></i><i></i></div>
+    <div class="lab" id="l7" style="left:90px;top:120px">Publications · <b>3</b></div>
+    <div class="num" id="n7" style="top:120px">07</div>
+    <div class="paperpage" id="pg1" style="left:110px;top:190px;width:400px"><img src="assets/img/pub-sustinere.jpg" alt=""></div>
+    <div class="paperpage" id="pg2" style="left:540px;top:230px;width:430px"><img src="assets/img/pub-motivection.jpg" alt=""></div>
+    <div class="chip" id="j1" style="left:110px;top:700px">SUSTINERE · 2026</div>
+    <div class="chip" id="j2" style="left:540px;top:660px">MOTIVECTION · 2025</div>
+    <div class="chip g" id="j3" style="left:540px;top:740px">+ UPER PRESS · 2026</div>
+    <div class="st" id="s7" style="left:86px;top:850px;font-size:120px"><em>Peer-reviewed</em></div>
+  </div>
+
+  <!-- 08 · close -->
+  <div class="frame" id="F8" style="left:0;top:1260px">
+    <div class="crop"><i></i><i></i><i></i><i></i></div>
+    <div class="num" id="n8" style="top:120px">08</div>
+    <div class="plate" id="pMe" style="left:90px;top:120px;width:420px;border-radius:18px"><img src="assets/img/zaki.jpg" alt=""></div>
+    <div class="st" id="s8a" style="left:560px;top:150px;font-size:112px;line-height:1.02;white-space:normal;width:460px">M. Zaki Ramdhan</div>
+    <div class="lab" id="l8" style="left:563px;top:420px;line-height:1.5;color:var(--ink)">Mechanical engineer<br><span style="color:var(--teal)">ML systems</span></div>
+    <div class="st" id="s8b" style="left:86px;top:640px;font-size:96px;line-height:1.02;white-space:normal;width:920px">Machine learning that knows its <em>limits</em></div>
+    <div class="lab" id="l8b" style="left:90px;top:930px">melionidas31.github.io/<b>MZakiRamdhan</b></div>
+  </div>
+</div>
+<div id="light"></div>
+<div id="hud">
+  <div class="st" id="sh" style="left:0;right:0;top:820px;text-align:center;font-size:78px">Models that know their <em>limits</em></div>
+  <div class="card" id="mae" style="left:600px;top:300px;width:372px">
+    <div class="k">RED-ZONE MAE<br>HELD-OUT TEST</div>
+    <div class="row"><div class="nm">Linear baseline</div><div class="val">22.25 m</div><div class="track"><div class="fill" style="width:100%;background:rgba(22,24,29,.55)"></div></div></div>
+    <div class="row"><div class="nm">ANN surrogate</div><div class="val" id="annV" style="color:var(--teal)">22.25 m</div><div class="track"><div class="fill" id="annF" style="width:100%;background:var(--teal)"></div></div></div>
+  </div>
+</div>
+<div id="grain"></div>
+<div id="vig"></div>
+<div id="dbg"><button id="dPlay">Pause</button><input id="dScrub" type="range" min="0" max="1000" value="0"><span id="dClock">0.00s</span></div>
+</div>
+<audio id="vo" src="assets/soundtrack.mp3" preload="auto"></audio>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const W=1080,H=1080,DUR=69;
+function fit(){const s=Math.min(innerWidth/W,innerHeight/H);$('#stage').style.transform=`translate(-50%,-50%) scale(${s})`;}
+addEventListener('resize',fit);fit();
+
+/* ---------- generated geometry (deterministic) ---------- */
+(function(){ // observations scattered around the prediction curve, only inside the data range
+  const g=$('#pts'),NS='http://www.w3.org/2000/svg',p=$('#pred'),L=p.getTotalLength();
+  for(let i=0;i<26;i++){const u=.03+i*.024,pt=p.getPointAtLength(L*u);if(pt.x>548)break;
+    const off=Math.sin(i*12.9898)*43758.5453%1*26;const c=document.createElementNS(NS,'circle');
+    c.setAttribute('cx',pt.x.toFixed(1));c.setAttribute('cy',(pt.y+off).toFixed(1));c.setAttribute('r','6');c.setAttribute('fill','#16181D');c.setAttribute('opacity','0');g.appendChild(c);}
+  // uncertainty band: narrow where data exists, opening wide past the boundary
+  let top='',bot='';for(let x=0;x<=900;x+=20){const pt=pointAtX(p,L,x);const w=x<560?14+x*.02:25+Math.pow((x-560)/340,1.6)*150;
+    top+=(x?' L':'M')+x+' '+(pt.y-w).toFixed(1);bot=' L'+x+' '+(pt.y+w).toFixed(1)+bot;}
+  $('#band').setAttribute('d',top+bot.replace(/^ L/,' L')+' Z');
+  // 1,215 scenarios = 45 × 27 dots
+  const d=$('#dots');for(let c=0;c<45;c++){const grp=document.createElementNS(NS,'g');grp.setAttribute('class','col');grp.setAttribute('opacity','0');
+    for(let r=0;r<27;r++){const e=document.createElementNS(NS,'circle');e.setAttribute('cx',9+c*18);e.setAttribute('cy',9+r*18);e.setAttribute('r','4.2');e.setAttribute('fill','#16181D');grp.appendChild(e);}d.appendChild(grp);}
+})();
+function pointAtX(p,L,x){let lo=0,hi=L;for(let i=0;i<22;i++){const m=(lo+hi)/2;if(p.getPointAtLength(m).x<x)lo=m;else hi=m;}return p.getPointAtLength(lo);}
+
+/* ---------- split statements into words (em keeps its style) ---------- */
+$$('.st').forEach(el=>{const out=[];el.childNodes.forEach(n=>{
+  if(n.nodeType===3){n.textContent.split(/\s+/).filter(Boolean).forEach(w=>{const s=document.createElement('span');s.className='w';s.textContent=w;out.push(s);});}
+  else if(n.classList&&n.classList.contains('w')){out.push(n);}
+  else if(n.nodeName==='BR'){out.push(n.cloneNode());}
+  else{n.textContent.split(/\s+/).filter(Boolean).forEach(w=>{const e=n.cloneNode(false);e.textContent=w;const s=document.createElement('span');s.className='w';s.appendChild(e);out.push(s);});}});
+  el.textContent='';out.forEach((s,i)=>{el.appendChild(s);if(i<out.length-1)el.appendChild(document.createTextNode(' '));});});
+
+const tl=gsap.timeline({paused:true});const rig=$('#world');
+
+/* ---------- vocabulary ---------- */
+const say=(sel,at,{st=.07,dur=.9}={})=>{const ws=$$('.w',$(sel));
+  tl.fromTo(ws,{opacity:0,y:46,filter:'blur(14px)'},{opacity:1,y:0,filter:'blur(0px)',duration:dur,ease:'expo.out',stagger:st,immediateRender:false},at);};
+const unsay=(sel,at)=>tl.to($$('.w',$(sel)),{opacity:0,y:-24,filter:'blur(10px)',duration:.4,ease:'power2.in',stagger:.025},at);
+const lab=(sel,at)=>tl.fromTo($(sel),{opacity:0,x:-18},{opacity:1,x:0,duration:.7,ease:'power3.out',immediateRender:false},at);
+const pop=(sel,at,{y=28,dur=.75}={})=>tl.fromTo($(sel),{opacity:0,y,scale:.94,filter:'blur(6px)'},{opacity:1,y:0,scale:1,filter:'blur(0px)',duration:dur,ease:'back.out(1.4)',immediateRender:false},at);
+const rise=(sel,at,{y=90,rot=0,fromRot=null,dur=1.1,x=0}={})=>tl.fromTo($(sel),{opacity:0,x,y,rotate:fromRot==null?rot:fromRot,scale:.96,filter:'blur(12px)'},
+  {opacity:1,x:0,y:0,rotate:rot,scale:1,filter:'blur(0px)',duration:dur,ease:'expo.out',immediateRender:false},at);
+const sink=(sel,at,{x=0,y=80,dur=.5}={})=>tl.to($(sel),{opacity:0,x,y,filter:'blur(10px)',duration:dur,ease:'power2.in'},at);
+const lenOf=el=>el.getTotalLength?el.getTotalLength():0;
+function prepDraw(el){const L=Math.ceil(lenOf(el))+2;el.style.strokeDasharray=el.classList.contains('dash')?'':L;el.style.strokeDashoffset=L;return L;}
+let mk=0;
+function dashMask(el){const NS='http://www.w3.org/2000/svg',svg=el.ownerSVGElement,id='dm'+(mk++),L=Math.ceil(lenOf(el))+2;
+  let defs=svg.querySelector('defs');if(!defs){defs=document.createElementNS(NS,'defs');svg.prepend(defs);}
+  const m=document.createElementNS(NS,'mask');m.id=id;m.setAttribute('maskUnits','userSpaceOnUse');m.setAttribute('x','-5000');m.setAttribute('y','-5000');m.setAttribute('width','12000');m.setAttribute('height','12000');
+  const c=el.cloneNode();c.removeAttribute('id');c.removeAttribute('class');c.setAttribute('fill','none');c.setAttribute('stroke','#fff');c.setAttribute('stroke-width','14');
+  c.style.strokeDasharray=L;c.style.strokeDashoffset=L;m.appendChild(c);defs.appendChild(m);el.setAttribute('mask',`url(#${id})`);return {c,L};}
+const draw=(sel,at,dur=.8,ease='power2.inOut')=>{$$(sel).forEach((el,i)=>{
+  if(el.classList.contains('dash')){const {c,L}=dashMask(el);tl.fromTo(c,{strokeDashoffset:L},{strokeDashoffset:0,duration:dur,ease,immediateRender:false},at+i*.08);return;}
+  const L=prepDraw(el);tl.fromTo(el,{strokeDashoffset:L},{strokeDashoffset:0,duration:dur,ease,immediateRender:false},at+i*.08);});};
+const count=(el,at,from,to,dur,fmt,ease='power2.out')=>{const o={v:from};tl.fromTo(o,{v:from},{v:to,duration:dur,ease,immediateRender:false,onUpdate(){el.textContent=fmt(o.v);}},at);};
+const sticky=new Set(); // elements that keep breathing after they land
+const breathe=(sel,amp=7,per=4.2,ph=0)=>sticky.add({el:$(sel),amp,per,ph});
+
+/* ---------- camera ---------- */
+const C={x:540,y:410,z:1.14};
+function applyCam(){const t=tl.time(),dx=Math.sin(t*.41)*4.5,dy=Math.cos(t*.33)*4,z=C.z*(1+Math.sin(t*.23)*.006);
+  rig.style.transform=`translate(${(540-C.x*z+dx).toFixed(2)}px,${(540-C.y*z+dy).toFixed(2)}px) scale(${z.toFixed(4)})`;
+  $('#light').style.transform=`translate(${(Math.sin(t*.12)*60).toFixed(1)}px,${(Math.cos(t*.09)*40).toFixed(1)}px)`;
+  $('#grain').style.backgroundPosition=`${(Math.floor(t*12)*37)%220}px ${(Math.floor(t*12)*91)%220}px`;
+  sticky.forEach(s=>{if(s.el)s.el.style.translate=`0 ${(Math.sin(t*2*Math.PI/s.per+s.ph)*s.amp).toFixed(2)}px`;});}
+const cam=(at,x,y,z,dur,ease='power3.inOut')=>tl.to(C,{x,y,z,duration:dur,ease,onUpdate:applyCam},at);
+tl.set(C,{x:540,y:410,z:1.14,onUpdate:applyCam},0);
+
+/* ================= 01 · FMEA (0 – 6.4) ================= */
+cam(.6,540,540,1,3.9,'power2.inOut');
+tl.set('#l1,#n1',{opacity:1},0);
+draw('#fmeaLines path',0,.9);tl.set($$('#fmeaLines path'),{strokeDashoffset:(i,el)=>el.getTotalLength()*.55},0);
+tl.fromTo($$('#fmea th'),{opacity:0,y:10},{opacity:1,y:0,duration:.5,stagger:.07,ease:'power3.out',immediateRender:false},.3);
+$$('#fmea tr').slice(1).forEach((tr,r)=>tl.fromTo($$('td',tr),{opacity:0,x:-14},{opacity:1,x:0,duration:.5,stagger:.1,ease:'power3.out',immediateRender:false},.7+r*.5));
+count($('#rpnA'),1.0,0,216,1.1,v=>Math.round(v));count($('#rpnB'),1.5,0,120,1.0,v=>Math.round(v));count($('#rpnC'),2.0,0,140,1.0,v=>Math.round(v));
+tl.to('#rpnA',{backgroundColor:'rgba(200,65,47,.14)',color:'#C8412F',duration:.5},2.9);
+draw('#fmBox',3.7,.9);
+say('#s1',4.62);
+
+/* ================= 02 · prediction ≠ trust (6.4 – 15.8) ================= */
+draw('#c12',6.35,.7,'power2.out');
+cam(6.4,1740,540,1,1.25);
+lab('#l2',7.25);lab('#n2',7.35);
+draw('#axes',7.3,.7);lab('#l2b',7.8);
+tl.fromTo($$('#pts circle'),{opacity:0,scale:0,transformOrigin:'50% 50%'},{opacity:.85,scale:1,duration:.4,stagger:.045,ease:'back.out(2)',immediateRender:false},7.9);
+draw('#pred',8.6,1.8,'power2.inOut');
+tl.fromTo($$('#s2 .w').slice(0,1),{opacity:0,y:46,filter:'blur(14px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.9,ease:'expo.out',immediateRender:false},11.05);
+tl.fromTo($$('#s2 .w').slice(1),{opacity:0,y:46,filter:'blur(14px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.9,ease:'expo.out',stagger:.12,immediateRender:false},13.75);
+draw('#neqSlash',14.0,.5);
+tl.fromTo('#band',{opacity:0,scaleY:.2,transformOrigin:'50% 50%'},{opacity:1,scaleY:1,duration:1.3,ease:'expo.out',immediateRender:false},13.75);
+tl.fromTo('#ood',{opacity:0},{opacity:1,duration:.8,ease:'power2.out',immediateRender:false},14.1);
+lab('#l2c',14.3);
+
+/* ================= 03 · bridge: same question (15.8 – 18.1) ================= */
+cam(15.75,1130,470,.5,1.4,'power2.inOut');
+draw('#arc',16.2,1.0);
+say('#sh',16.15,{st:.06});
+unsay('#sh',17.75);
+
+/* ================= 03 · ALOHA hazard map (18.1 – 24.1) ================= */
+draw('#c23',17.9,.7,'power2.out');
+cam(18.0,1740,1800,1,1.35);
+lab('#l3',18.85);lab('#n3',18.95);
+rise('#pMap',19.0);breathe('#pMap',6,4.6,0);
+say('#s3',19.7,{st:.06});
+draw('#ld1',21.2,.7);
+pop('#r1',21.6);pop('#r2',22.1);pop('#r3',22.6);
+
+/* ================= 04 · 1,215 scenarios → 22.25 → 1.82 m → OOD (24.1 – 36.4) ================= */
+draw('#c34',23.95,.6,'power2.out');
+cam(24.0,2940,1800,1,1.1);
+lab('#n4',24.7);
+tl.fromTo('#cnt',{opacity:0,y:30},{opacity:1,y:0,duration:.6,ease:'power3.out',immediateRender:false},24.6);
+count($('#cnt'),24.66,0,1215,2.3,v=>Math.round(v).toLocaleString('en-US'),'power1.inOut');
+tl.fromTo($$('#dots .col'),{opacity:0},{opacity:.62,duration:.25,stagger:.05,ease:'none',immediateRender:false},24.66);
+lab('#l4',25.2);
+// the real dashboard slides over the scenario grid, the camera pushes into its Red-Zone bars
+rise('#pModels',27.9,{y:140});
+cam(28.75,2709,1774,2.2,1.7,'power2.inOut');
+tl.fromTo('#mae',{opacity:0,x:60,filter:'blur(10px)'},{opacity:1,x:0,filter:'blur(0px)',duration:.9,ease:'expo.out',immediateRender:false},29.2);
+count($('#annV'),31.37,22.25,1.82,1.15,v=>v.toFixed(2)+' m','expo.out');
+tl.fromTo('#annF',{width:'100%'},{width:(1.82/22.25*100).toFixed(2)+'%',duration:1.15,ease:'expo.out',immediateRender:false},31.37);
+draw('#ring',31.55,.7);
+// back to the grid: the trusted range is drawn, everything outside is flagged
+tl.to('#mae',{opacity:0,x:60,filter:'blur(10px)',duration:.45,ease:'power2.in'},32.85);
+cam(32.9,2940,1800,1,1.2);
+sink('#pModels',33.0,{y:160,dur:.6});
+draw('#trust',33.4,.9);
+tl.fromTo('#oodHatch',{opacity:0},{opacity:1,duration:.8,immediateRender:false},33.9);
+tl.to($$('#dots .col'),{opacity:.8,duration:.4},33.4);
+pop('#chTrust',34.1);lab('#l4b',34.6);
+
+/* ================= 05 · AntiDeadline.ai (36.4 – 48.0) ================= */
+draw('#c45',36.25,.6,'power2.out');
+cam(36.3,2940,3000,1,1.15);
+lab('#l5',36.95);lab('#n5',37.05);
+rise('#pLand',37.0);
+pop('#q1',40.66);draw('#pipe',40.9,.9,'power1.inOut');pop('#q2',41.3);pop('#q3',41.9);
+tl.fromTo('#pk1',{opacity:0,attr:{cx:250}},{opacity:1,attr:{cx:420},duration:.7,ease:'power1.inOut',immediateRender:false},41.0);
+tl.fromTo('#pk2',{opacity:0,attr:{cx:640}},{opacity:1,attr:{cx:760},duration:.6,ease:'power1.inOut',immediateRender:false},41.65);
+tl.to('#pk1,#pk2',{opacity:0,duration:.2},42.4);
+rise('#pIn',42.6,{rot:-4,fromRot:-9,y:120});rise('#pMeth',42.85,{rot:2.5,fromRot:7,y:120});rise('#pRes',43.1,{y:140});
+breathe('#pRes',6,4.4,1);
+cam(42.6,2960,2990,1.04,4.8,'sine.inOut');
+pop('#g1',45.4);pop('#g2',45.7);pop('#g3',46.0);
+say('#s5',45.45,{st:.06});
+
+/* ================= 06 · field inspection (48.0 – 54.2) ================= */
+draw('#c56',47.95,.6,'power2.out');
+cam(48.0,1740,3000,1,1.15);
+lab('#l6',48.7);lab('#n6',48.8);
+rise('#ph',48.6,{y:120});breathe('#ph',7,4.8,2);
+pop('#vn',49.6);
+rise('#pSheet',50.0,{x:80,y:20});
+draw('#rowBox',51.4,.8);
+say('#s6',49.9,{st:.06});
+
+/* ================= 07 · publications (54.2 – 59.9) ================= */
+draw('#c67',54.15,.6,'power2.out');
+cam(54.2,540,3000,1,1.15);
+lab('#l7',54.9);lab('#n7',55.0);
+rise('#pg1',54.9,{rot:-2.5,fromRot:-8,y:140});rise('#pg2',55.25,{rot:2,fromRot:8,y:140});
+breathe('#pg1',6,5,0);breathe('#pg2',6,5,2);
+pop('#j1',56.0);pop('#j2',56.4);pop('#j3',56.8);
+say('#s7',55.6);
+
+/* ================= 08 · whole sheet → close (59.9 – 69) ================= */
+cam(59.85,1740,1770,.29,1.35,'power2.inOut');
+draw('#c78',60.4,.6,'power2.out');
+cam(61.15,540,1800,1,1.45,'power3.inOut');
+rise('#pMe',61.4,{y:120});lab('#n8',61.9);
+say('#s8a',61.15,{st:.1});
+lab('#l8',62.9);
+say('#s8b',64.36,{st:.07});
+lab('#l8b',65.6);
+cam(63.0,540,1800,1.035,6.0,'sine.inOut');
+tl.to({},{duration:.01},DUR-.01);
+
+/* ---------- control: autoplay + loop, no player; ?debug=1 scrub; ?clean=1 for export ---------- */
+const q=new URLSearchParams(location.search),vo=$('#vo'),hasVO=!!vo.getAttribute('src')&&!q.has('mute');let audioOn=false;
+function start(){tl.play(0);applyCam();if(hasVO){vo.currentTime=0;vo.play().then(()=>audioOn=true).catch(()=>{});}}
+tl.eventCallback('onComplete',()=>start());
+gsap.ticker.add(()=>{applyCam();if(!audioOn||tl.paused())return;if(Math.abs(vo.currentTime-tl.time())>.12)vo.currentTime=tl.time();});
+window.OPENER={W,H,DURATION:DUR,tl,ready:false,seek(t){tl.pause(t,false);applyCam();},play:start};
+addEventListener('keydown',e=>{if(/^[rR]$/.test(e.key))start();if(e.code==='Space'){e.preventDefault();tl.paused()?tl.play():tl.pause();}});
+if(q.has('debug')){const dbg=$('#dbg');dbg.style.display='flex';const sc=$('#dScrub'),ck=$('#dClock');let drag=false;
+  gsap.ticker.add(()=>{if(!drag)sc.value=String(tl.time()/DUR*1000);ck.textContent=tl.time().toFixed(2)+'s';$('#dPlay').textContent=tl.paused()?'Play':'Pause';});
+  sc.addEventListener('pointerdown',()=>{drag=true;tl.pause();});addEventListener('pointerup',()=>drag=false);
+  sc.addEventListener('input',()=>{tl.pause();tl.time(sc.value/1000*DUR);if(audioOn)vo.currentTime=tl.time();});$('#dPlay').onclick=()=>{if(tl.paused()){tl.play();if(hasVO)vo.play();}else{tl.pause();vo.pause();}};}
+Promise.all([document.fonts.ready,...$$('img').map(i=>i.complete?1:new Promise(r=>{i.onload=i.onerror=r;}))]).then(()=>{tl.pause(0);applyCam();window.OPENER.ready=true;if(q.has('clean'))return;
+  if(!hasVO){start();return;}
+  vo.play().then(()=>{audioOn=true;vo.currentTime=0;tl.play(0);}).catch(()=>{const go=()=>{removeEventListener('pointerdown',go);removeEventListener('keydown',go);start();};addEventListener('pointerdown',go);addEventListener('keydown',go);});});
+</script>
+</body>
+</html>
