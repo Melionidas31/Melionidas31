@@ -1,0 +1,111 @@
+1
+00:00:00,050 --> 00:00:01,300
+Dalam process safety,
+
+2
+00:00:01,500 --> 00:00:03,850
+setiap kajian dimulai dengan satu pertanyaan:
+
+3
+00:00:04,550 --> 00:00:06,300
+bagaimana sistem ini bisa gagal?
+
+4
+00:00:07,050 --> 00:00:08,800
+Kini machine learning mulai masuk
+
+5
+00:00:08,800 --> 00:00:10,550
+ke operasi industri.
+
+6
+00:00:10,950 --> 00:00:13,300
+Namun kebanyakan model hanya memberi prediksi,
+
+7
+00:00:13,600 --> 00:00:15,550
+bukan seberapa jauh prediksi itu bisa dipercaya.
+
+8
+00:00:15,950 --> 00:00:18,000
+Saya membangun model yang menjawab keduanya.
+
+9
+00:00:18,550 --> 00:00:21,300
+Surrogate ML saya menggantikan simulasi dispersi ALOHA
+
+10
+00:00:21,300 --> 00:00:24,150
+untuk prediksi zona bahaya secara real-time.
+
+11
+00:00:24,550 --> 00:00:26,600
+Dilatih dengan 1.215 skenario,
+
+12
+00:00:26,600 --> 00:00:29,200
+model ini menurunkan error Zona Merah
+
+13
+00:00:29,200 --> 00:00:31,150
+dari 22,25 meter…
+
+14
+00:00:31,250 --> 00:00:32,800
+menjadi 1,82 meter.
+
+15
+00:00:32,950 --> 00:00:36,250
+Ia juga memetakan kapan prediksinya tak lagi andal.
+
+16
+00:00:36,650 --> 00:00:38,900
+AntiDeadline.ai menerapkan disiplin yang sama
+
+17
+00:00:38,900 --> 00:00:40,450
+pada dokumen:
+
+18
+00:00:40,550 --> 00:00:42,900
+pipeline LLM tiga tahap yang mengubah file mentah
+
+19
+00:00:42,900 --> 00:00:45,150
+menjadi root cause analysis,
+
+20
+00:00:45,300 --> 00:00:48,100
+dengan bukti terverifikasi terpisah dari asumsi.
+
+21
+00:00:48,300 --> 00:00:51,100
+Di lapangan, alur inspeksi otomatis mengubah
+
+22
+00:00:51,100 --> 00:00:54,250
+voice note dan foto menjadi laporan terstruktur.
+
+23
+00:00:54,400 --> 00:00:56,900
+Metode-metode ini telah melalui peer review,
+
+24
+00:00:56,900 --> 00:00:58,700
+dengan publikasi tentang probabilitas human error
+
+25
+00:00:58,700 --> 00:01:00,250
+dan kebijakan transisi energi.
+
+26
+00:01:01,000 --> 00:01:02,500
+Saya Zaki Ramdhan.
+
+27
+00:01:02,800 --> 00:01:04,200
+Seorang mechanical engineer
+
+28
+00:01:04,250 --> 00:01:07,600
+yang membangun sistem ML yang tahu batasnya.

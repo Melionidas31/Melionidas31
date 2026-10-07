@@ -8,6 +8,7 @@ page that plays like a video.
 |---|---|
 | `portfolio-motion.mp4` | Final render: 1080×1080, 60 fps, H.264 + AAC (VO + ambient music) |
 | `thumbnail.png` | Closing frame, for LinkedIn's custom thumbnail |
+| `subtitles-id.srt` | Indonesian subtitles (also burned into the MP4; `index.html?subs=0` hides them) |
 | `index.html` | The animation itself. Double-click to play (autoplay, loop, no player) |
 | `vo-script.md` | EN + ID voice-over scripts written for ElevenLabs Eleven v4 |
 | `assets/vo-en.mp3` | English VO (ElevenLabs Eleven v4, voice clone) |

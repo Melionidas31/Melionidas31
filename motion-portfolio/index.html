@@ -90,6 +90,9 @@ table.fmea{position:absolute;border-collapse:collapse;font:500 32px/1 "Geist",sa
 .card .val{margin-top:6px;font:400 84px/1 "Instrument Serif",serif;font-variant-numeric:tabular-nums;white-space:nowrap}
 .card .track{margin-top:12px;height:12px;border-radius:6px;background:rgba(22,24,29,.06)}
 .card .fill{height:100%;border-radius:6px}
+#subs{position:absolute;left:0;right:0;bottom:30px;height:62px;pointer-events:none}
+.sub{position:absolute;left:50%;bottom:0;transform:translateX(-50%);padding:13px 22px 15px;border-radius:12px;background:rgba(22,24,29,.84);color:#fff;
+  font:500 31px/1.1 "Geist",sans-serif;letter-spacing:-.005em;white-space:nowrap;opacity:0;box-shadow:0 10px 24px -10px rgba(0,0,0,.45)}
 #dbg{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:none;gap:12px;align-items:center;padding:10px 16px;border-radius:14px;background:rgba(14,16,22,.9);color:#cfd5e3;font:13px system-ui;z-index:50}
 #dbg input{width:360px}#dbg span{font-variant-numeric:tabular-nums;min-width:6ch}
 </style>
@@ -179,7 +182,7 @@ table.fmea{position:absolute;border-collapse:collapse;font:500 32px/1 "Geist",sa
       <rect id="trust" class="dash" x="111" y="376" width="858" height="534" rx="22"/>
     </svg>
     <div class="chip t" id="chTrust" style="left:620px;top:350px">TRUSTED RANGE</div>
-    <div class="lab" id="l4b" style="left:90px;top:968px;color:var(--ink)">Out of distribution · <b style="color:var(--teal)">flagged</b></div>
+    <div class="lab" id="l4b" style="left:90px;top:932px;color:var(--ink)">Out of distribution · <b style="color:var(--teal)">flagged</b></div>
     <div class="plate" id="pModels" style="left:60px;top:290px;width:960px"><div class="bar"><i></i><i></i><i></i></div><img src="assets/img/aloha-models.jpg" alt="">
       <svg class="ink" style="left:0;top:34px;width:960px;height:486px" viewBox="0 0 960 486"><circle id="ring" class="tl" cx="78" cy="250" r="30"/></svg></div>
   </div>
@@ -204,7 +207,7 @@ table.fmea{position:absolute;border-collapse:collapse;font:500 32px/1 "Geist",sa
     <div class="chip t" id="g1" style="left:90px;top:420px">VERIFIED</div>
     <div class="chip o" id="g2" style="left:90px;top:500px">ASSUMPTION</div>
     <div class="chip g" id="g3" style="left:90px;top:580px">MISSING</div>
-    <div class="st" id="s5" style="left:86px;top:836px;font-size:80px;line-height:1;white-space:normal;width:920px">Evidence, separated from <em>assumption</em></div>
+    <div class="st" id="s5" style="left:86px;top:808px;font-size:70px;line-height:1;white-space:normal;width:920px">Evidence, separated from <em>assumption</em></div>
   </div>
 
   <!-- 06 · field inspection -->
@@ -216,7 +219,7 @@ table.fmea{position:absolute;border-collapse:collapse;font:500 32px/1 "Geist",sa
       <svg class="ink" style="left:0;top:34px;width:700px;height:343px" viewBox="0 0 700 343"><rect id="rowBox" class="tl" x="4" y="74" width="692" height="90" rx="6"/></svg></div>
     <div class="phone" id="ph" style="left:90px;top:190px;width:340px"><img src="assets/img/mwt-telegram.jpg" alt=""></div>
     <div class="chip" id="vn" style="left:470px;top:700px">VOICE · PHOTO · TEXT</div>
-    <div class="st" id="s6" style="left:86px;top:800px;font-size:84px;line-height:1;white-space:normal;width:920px">From field notes to <em>structured data</em></div>
+    <div class="st" id="s6" style="left:86px;top:796px;font-size:80px;line-height:1;white-space:normal;width:920px">From field notes to <em>structured data</em></div>
   </div>
 
   <!-- 07 · publications -->
@@ -229,18 +232,18 @@ table.fmea{position:absolute;border-collapse:collapse;font:500 32px/1 "Geist",sa
     <div class="chip" id="j1" style="left:110px;top:700px">SUSTINERE · 2026</div>
     <div class="chip" id="j2" style="left:540px;top:660px">MOTIVECTION · 2025</div>
     <div class="chip g" id="j3" style="left:540px;top:740px">+ UPER PRESS · 2026</div>
-    <div class="st" id="s7" style="left:86px;top:850px;font-size:120px"><em>Peer-reviewed</em></div>
+    <div class="st" id="s7" style="left:86px;top:830px;font-size:120px"><em>Peer-reviewed</em></div>
   </div>
 
   <!-- 08 · close -->
   <div class="frame" id="F8" style="left:0;top:1260px">
     <div class="crop"><i></i><i></i><i></i><i></i></div>
     <div class="num" id="n8" style="top:120px">08</div>
-    <div class="plate" id="pMe" style="left:90px;top:120px;width:420px;border-radius:18px"><img src="assets/img/zaki.jpg" alt=""></div>
+    <div class="plate" id="pMe" style="left:90px;top:110px;width:410px;border-radius:18px"><img src="assets/img/zaki.jpg" alt=""></div>
     <div class="st" id="s8a" style="left:560px;top:150px;font-size:112px;line-height:1.02;white-space:normal;width:460px">M. Zaki Ramdhan</div>
     <div class="lab" id="l8" style="left:563px;top:420px;line-height:1.5;color:var(--ink)">Mechanical engineer<br><span style="color:var(--teal)">ML systems</span></div>
-    <div class="st" id="s8b" style="left:86px;top:640px;font-size:96px;line-height:1.02;white-space:normal;width:920px">Machine learning that knows its <em>limits</em></div>
-    <div class="lab" id="l8b" style="left:90px;top:930px">melionidas31.github.io/<b>MZakiRamdhan</b></div>
+    <div class="st" id="s8b" style="left:86px;top:650px;font-size:96px;line-height:1.02;white-space:normal;width:920px">Machine learning that knows its <em>limits</em></div>
+    <div class="lab" id="l8b" style="left:90px;top:900px">melionidas31.github.io/<b>MZakiRamdhan</b></div>
   </div>
 </div>
 <div id="light"></div>
@@ -254,6 +257,7 @@ table.fmea{position:absolute;border-collapse:collapse;font:500 32px/1 "Geist",sa
 </div>
 <div id="grain"></div>
 <div id="vig"></div>
+<div id="subs"></div>
 <div id="dbg"><button id="dPlay">Pause</button><input id="dScrub" type="range" min="0" max="1000" value="0"><span id="dClock">0.00s</span></div>
 </div>
 <audio id="vo" src="assets/soundtrack.mp3" preload="auto"></audio>
@@ -289,7 +293,7 @@ $$('.st').forEach(el=>{const out=[];el.childNodes.forEach(n=>{
   else{n.textContent.split(/\s+/).filter(Boolean).forEach(w=>{const e=n.cloneNode(false);e.textContent=w;const s=document.createElement('span');s.className='w';s.appendChild(e);out.push(s);});}});
   el.textContent='';out.forEach((s,i)=>{el.appendChild(s);if(i<out.length-1)el.appendChild(document.createTextNode(' '));});});
 
-const tl=gsap.timeline({paused:true});const rig=$('#world');
+const tl=gsap.timeline({paused:true});const rig=$('#world');const q0=new URLSearchParams(location.search);
 
 /* ---------- vocabulary ---------- */
 const say=(sel,at,{st=.07,dur=.9}={})=>{const ws=$$('.w',$(sel));
@@ -434,6 +438,11 @@ say('#s8b',64.36,{st:.07});
 lab('#l8b',65.6);
 cam(63.0,540,1800,1.035,6.0,'sine.inOut');
 tl.to({},{duration:.01},DUR-.01);
+
+/* ---------- Indonesian subtitles (cue times follow the pauses in assets/vo-en.mp3; same cues as subtitles-id.srt) ---------- */
+const CUES=[[0.05, 1.3, "Dalam process safety,"], [1.5, 3.85, "setiap kajian dimulai dengan satu pertanyaan:"], [4.55, 6.3, "bagaimana sistem ini bisa gagal?"], [7.05, 8.8, "Kini machine learning mulai masuk"], [8.8, 10.55, "ke operasi industri."], [10.95, 13.3, "Namun kebanyakan model hanya memberi prediksi,"], [13.6, 15.55, "bukan seberapa jauh prediksi itu bisa dipercaya."], [15.95, 18.0, "Saya membangun model yang menjawab keduanya."], [18.55, 21.3, "Surrogate ML saya menggantikan simulasi dispersi ALOHA"], [21.3, 24.15, "untuk prediksi zona bahaya secara real-time."], [24.55, 26.6, "Dilatih dengan 1.215 skenario,"], [26.6, 29.2, "model ini menurunkan error Zona Merah"], [29.2, 31.15, "dari 22,25 meter…"], [31.25, 32.8, "menjadi 1,82 meter."], [32.95, 36.25, "Ia juga memetakan kapan prediksinya tak lagi andal."], [36.65, 38.9, "AntiDeadline.ai menerapkan disiplin yang sama"], [38.9, 40.45, "pada dokumen:"], [40.55, 42.9, "pipeline LLM tiga tahap yang mengubah file mentah"], [42.9, 45.15, "menjadi root cause analysis,"], [45.3, 48.1, "dengan bukti terverifikasi terpisah dari asumsi."], [48.3, 51.1, "Di lapangan, alur inspeksi otomatis mengubah"], [51.1, 54.25, "voice note dan foto menjadi laporan terstruktur."], [54.4, 56.9, "Metode-metode ini telah melalui peer review,"], [56.9, 58.7, "dengan publikasi tentang probabilitas human error"], [58.7, 60.25, "dan kebijakan transisi energi."], [61.0, 62.5, "Saya Zaki Ramdhan."], [62.8, 64.2, "Seorang mechanical engineer"], [64.25, 67.6, "yang membangun sistem ML yang tahu batasnya."]];
+if(q0.get('subs')!=='0'){const box=$('#subs');CUES.forEach(([a,b,txt])=>{const d=document.createElement('div');d.className='sub';d.textContent=txt;box.appendChild(d);
+  tl.fromTo(d,{opacity:0,y:8},{opacity:1,y:0,duration:.18,ease:'power2.out',immediateRender:false},a);tl.to(d,{opacity:0,duration:.14,ease:'power1.in'},b-.14);});}
 
 /* ---------- control: autoplay + loop, no player; ?debug=1 scrub; ?clean=1 for export ---------- */
 const q=new URLSearchParams(location.search),vo=$('#vo'),hasVO=!!vo.getAttribute('src')&&!q.has('mute');let audioOn=false;
